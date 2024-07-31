@@ -1,12 +1,13 @@
 from fastapi import FastAPI, Response, status, HTTPException,Depends
 
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 from .config import settings
 
 from lost import auth
 from . import models, schemas, utils
 from .database import engine, get_db
-from .routers import post, user,vote
+from .routers import post, user,vote, testimony
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -29,11 +30,15 @@ app.add_middleware(
 )
 
 
-app.include_router(post.router)
-app.include_router(user.router)
-app.include_router(auth.router)
-app.include_router(vote.router)
 
+app.include_router(user.router)
+app.include_router(post.router)
+app.include_router(testimony.router)
+app.include_router(vote.router)
+app.include_router(auth.router)
+
+# Mount the directory where images are stored
+app.mount("/uploads", StaticFiles(directory="./uploads"), name="uploads")
 
 @app.get("/")
 def root():

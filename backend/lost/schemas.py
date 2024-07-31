@@ -25,12 +25,10 @@ class UserLogin(BaseModel):
 
 class PostBase(BaseModel):
     title: str
-    content: str
     image_url: str  # URL to the uploaded image
     location: str  # Location where the item was found
     phone_number: str  # Phone number for contact
-    explanation: Optional[str] = None  # Optional explanation
-    published: bool = True
+    description: Optional[str] = None  
 
 class PostCreate(PostBase):  
     pass
@@ -61,3 +59,16 @@ class TokenData(BaseModel):
 class Vote(BaseModel):
     post_id: int
     dir: int = Field(..., ge=0, le=1)
+
+class TestimonyCreate(BaseModel):
+    
+    testimony: str
+
+class TestimonyOut(TestimonyCreate):
+    id:int
+    owner_id: int
+
+
+    class Config:
+        from_attributes = True
+   

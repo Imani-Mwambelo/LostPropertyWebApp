@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import TestimonyCarousel from './TestimonyCarousel';
+
 
 const Home: React.FC = () => {
   return (
@@ -13,8 +15,8 @@ const Home: React.FC = () => {
 
       <main>
         <section className="mb-8">
-          <h2 className="text-2xl text-center mb-4">How It Works</h2>
-          <p className="text-lg text-gray-700">
+          <h2 className="text-2xl text-blue-600 text-center mb-4">How It Works</h2>
+          <p className="text-lg text-gray-500">
             Have you found something on the street? Post it here to help the owner find it. Looking for something you lost? Browse through the posts to see if someone has found it.
           </p>
         </section>
@@ -33,6 +35,7 @@ const Home: React.FC = () => {
             View Posts
           </Link>
         </section>
+        <TestimonyCarousel />
       </main>
     </div>
   );

@@ -15,22 +15,29 @@ class User(Base):
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
 
 
+
+
 class Post(Base):
     __tablename__ = "posts"
 
     id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
-    content = Column(String, nullable=False)
     image_url = Column(String, nullable=False)  # URL to the uploaded image
     location = Column(String, nullable=False)  # Location where the item was found
     phone_number = Column(String, nullable=False)  # Phone number for contact
-    explanation = Column(String, nullable=True)  # Optional explanation
-    published = Column(Boolean, server_default="TRUE")
+    description = Column(String, nullable=True)  # Optional explanation
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
     owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
 
     owner = relationship("User")
 
+class Testimony(Base):
+    __tablename__ = "testimonies"
+
+    id = Column(Integer, primary_key=True)
+    owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    testimony = Column(String, nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
 
 class Vote(Base):
     __tablename__ = "votes"
