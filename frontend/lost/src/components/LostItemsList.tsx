@@ -49,7 +49,7 @@ const LostItemsList: React.FC = () => {
         {posts.map((item: Post) => (
           <div key={item.id} className="shadow-lg rounded-lg overflow-hidden">
             <img
-              src={`http://localhost:8000/.${item.image_url}`} // Ensure the full path to the image
+              src={`https://lostpropertywebapp.onrender.com/.${item.image_url}`} // Ensure the full path to the image
               alt={item.title}
               className="object-fit:cover max-width: 100% max-height: 100%"
             />

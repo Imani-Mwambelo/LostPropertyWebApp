@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8000', // Replace with your backend URL
+  baseURL: 'https://lostpropertywebapp.onrender.com', // Replace with your backend URL
   headers: {
     "Content-Type": "application/x-www-form-urlencoded",
   }

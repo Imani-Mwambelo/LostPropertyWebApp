@@ -64,7 +64,7 @@ const UserPostsList: React.FC = () => {
     setUpdatedDescription(post.description);
     setUpdatedLocation(post.location);
     setUpdatedPhoneNumber(post.phone_number);
-    setUpdatedImagePreview(`http://localhost:8000${post.image_url}`);
+    setUpdatedImagePreview(`https://lostpropertywebapp.onrender.com${post.image_url}`);
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,7 +115,6 @@ const UserPostsList: React.FC = () => {
         >
           <ArrowLeft className="w-5 h-5 mr-1" /> Back
         </button>
-        <h2 className="text-2xl text-blue-500 ml-4">Your Posts</h2>
       </div>
       {isLoading ? (
         <div className="flex justify-center items-center h-64">
@@ -129,7 +128,7 @@ const UserPostsList: React.FC = () => {
               className="bg-white shadow-md rounded-lg overflow-hidden"
             >
               <img
-                src={`http://localhost:8000${item.image_url}`} // Full path to the image
+                src={`https://lostpropertywebapp.onrender.com${item.image_url}`} // Full path to the image
                 alt={item.title}
                 className="object-fit: cover max-width: 100% max-height: 100%"
               />

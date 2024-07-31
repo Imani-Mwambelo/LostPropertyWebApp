@@ -17,7 +17,7 @@ const Register: React.FC = () => {
       return;
     }
     try {
-      await axios.post('http://localhost:8000/users', { username, email, password });
+      await axios.post('https://lostpropertywebapp.onrender.com/users', { username, email, password });
       navigate('/login');
     } catch (error) {
       console.error('Registration failed', error);
