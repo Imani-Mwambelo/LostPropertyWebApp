@@ -24,7 +24,7 @@ def get_posts(db: Session = Depends(get_db), limit: int = 10, skip: int = 0, sea
         models.Vote, models.Post.id == models.Vote.post_id, isouter=True
     ).group_by(models.Post.id).filter(
         models.Post.title.contains(search) | models.Post.description.contains(search) | models.Post.location.contains(search)
-    ).order_by((models.Post.created_at).desc).limit(limit).offset(skip)
+    ).order_by(models.Post.created_at.desc()).limit(limit).offset(skip)
     
     posts = posts_query.all()
     return posts
@@ -33,7 +33,7 @@ def get_posts(db: Session = Depends(get_db), limit: int = 10, skip: int = 0, sea
 def get_posts(db: Session = Depends(get_db), user_id = Depends(oauth2.get_current_user)):
     posts_query = db.query(models.Post, func.count(models.Vote.post_id).label("votes")).join(
         models.Vote, models.Post.id == models.Vote.post_id, isouter=True
-    ).group_by(models.Post.id).filter(models.Post.owner_id==user_id).order_by((models.Post.created_at).desc)
+    ).group_by(models.Post.id).filter(models.Post.owner_id==user_id).order_by(models.Post.created_at.desc())
     
     posts = posts_query.all()
     return posts
