@@ -16,17 +16,12 @@ models.Base.metadata.create_all(bind=engine)
 
 app=FastAPI()
 
-origins=[
-  "*"
-]
-
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["https://lost-property-web-app.vercel.app"],  # Replace with your frontend URL
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE"],  # Restrict methods if needed
+    allow_headers=["Content-Type", "Authorization"],  # Specify necessary headers
 )
 
 
