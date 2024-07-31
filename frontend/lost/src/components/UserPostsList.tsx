@@ -7,16 +7,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import api from '../api';
 
 interface Post {
-    id: number;
-    title: string;
-    image_url: string;
-    location: string;
-    phone_number: string;
-    description: string;
-    created_at: string;
-    owner_id: number;
-  }
-  
+  id: number;
+  title: string;
+  image_url: string;
+  location: string;
+  phone_number: string;
+  description: string;
+  created_at: string;
+  owner_id: number;
+}
 
 const UserPostsList: React.FC = () => {
   const navigate = useNavigate();
@@ -64,7 +63,7 @@ const UserPostsList: React.FC = () => {
     setUpdatedDescription(post.description);
     setUpdatedLocation(post.location);
     setUpdatedPhoneNumber(post.phone_number);
-    setUpdatedImagePreview(`https://lostpropertywebapp.onrender.com${post.image_url}`);
+    setUpdatedImagePreview(`https://lost-property-web-app.vercel.app${post.image_url}`);
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,9 +127,9 @@ const UserPostsList: React.FC = () => {
               className="bg-white shadow-md rounded-lg overflow-hidden"
             >
               <img
-                src={`https://lostpropertywebapp.onrender.com${item.image_url}`} // Full path to the image
+                src={`https://lost-property-web-app.vercel.app${item.image_url}`} // Full path to the image
                 alt={item.title}
-                className="object-fit: cover max-width: 100% max-height: 100%"
+                className="w-full h-48 object-cover"
               />
               <div className="p-3">
                 <h3 className="text-lg font-semibold mb-1">{item.title}</h3>

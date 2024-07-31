@@ -15,6 +15,7 @@ interface Post {
 
 const LostItemsList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [locationFilter, setLocationFilter] = useState<string>('');
   const { data: posts = [], isLoading, error } = useFetchPosts(searchTerm);
 
   if (isLoading) return <p>Loading...</p>;
@@ -22,6 +23,11 @@ const LostItemsList: React.FC = () => {
 
   // Extract unique locations for filtering options
   const uniqueLocations = Array.from(new Set(posts.map((item: Post) => item.location)));
+
+  // Filter posts based on location
+  const filteredPosts = posts.filter((post: Post) =>
+    locationFilter ? post.location === locationFilter : true
+  );
 
   return (
     <div className="container mx-auto p-4">
@@ -35,8 +41,8 @@ const LostItemsList: React.FC = () => {
           className="w-full md:w-1/3 p-2 border border-gray-300 rounded mb-4 md:mb-0"
         />
         <select
-          value={uniqueLocations[0] || ''} // Set default value if uniqueLocations is empty
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value={locationFilter}
+          onChange={(e) => setLocationFilter(e.target.value)}
           className="w-full md:w-1/3 p-2 border border-gray-300 rounded"
         >
           <option value="">Filter by location</option>
@@ -46,12 +52,12 @@ const LostItemsList: React.FC = () => {
         </select>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map((item: Post) => (
+        {filteredPosts.map((item: Post) => (
           <div key={item.id} className="shadow-lg rounded-lg overflow-hidden">
             <img
-              src={`https://lostpropertywebapp.onrender.com/.${item.image_url}`} // Ensure the full path to the image
+              src={`https://lost-property-web-app.vercel.app${item.image_url}`} // Using your Vercel URL
               alt={item.title}
-              className="object-fit:cover max-width: 100% max-height: 100%"
+              className="w-full h-48 object-cover"
             />
             <div className="p-4">
               <h3 className="text-xl mb-2">{item.title}</h3>
