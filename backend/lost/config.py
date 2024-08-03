@@ -18,6 +18,10 @@ class Settings(BaseSettings):
 
 settings= Settings()
 
+file_upload_key_path = Path("./routers/fileupload-key.json")
+with file_upload_key_path.open("w") as file:
+    file.write(settings.file_upload_key)
+
 
 
 
