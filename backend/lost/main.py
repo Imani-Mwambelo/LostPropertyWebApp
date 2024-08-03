@@ -7,7 +7,7 @@ from .config import settings
 from lost import auth
 from . import models, schemas, utils
 from .database import engine, get_db
-from .routers import post, user,vote, testimony
+from .routers import post, user,vote, testimony, upload
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -18,7 +18,7 @@ app=FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://lost-property-web-app.vercel.app"],  # Replace with your frontend URL
+    allow_origins=["*"],  # Replace with your frontend URL
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE"],  # Restrict methods if needed
     allow_headers=["Content-Type", "Authorization"],  # Specify necessary headers
@@ -31,9 +31,7 @@ app.include_router(post.router)
 app.include_router(testimony.router)
 app.include_router(vote.router)
 app.include_router(auth.router)
-
-# Mount the directory where images are stored
-app.mount("/uploads", StaticFiles(directory="./uploads"), name="uploads")
+app.include_router(upload.router)
 
 @app.get("/")
 def root():

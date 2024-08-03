@@ -4,7 +4,7 @@ import { useFetchUserPosts } from '../hooks/useFetchUserPosts';
 import { ArrowLeft, LoaderCircle } from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import api from '../api';
+import api from '../api/api';
 
 interface Post {
   id: number;
@@ -127,7 +127,7 @@ const UserPostsList: React.FC = () => {
               className="bg-white shadow-md rounded-lg overflow-hidden"
             >
               <img
-                src={`https://lost-property-web-app.vercel.app${item.image_url}`} // Full path to the image
+                src={`${item.image_url}`} // Full path to the image
                 alt={item.title}
                 className="w-full h-48 object-cover"
               />

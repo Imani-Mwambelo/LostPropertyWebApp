@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings
+from pathlib import Path
 
 class Settings(BaseSettings):
     database_hostname:str
@@ -9,6 +10,8 @@ class Settings(BaseSettings):
     secret_key:str
     algorithm:str
     access_token_expire_minutes:int
+    blob_read_write_token:str
+    file_upload_key:Path
 
     class Config:
         env_file= ".env"

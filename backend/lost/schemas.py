@@ -2,10 +2,14 @@ from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, EmailStr, Field
 
+
 class UserBase(BaseModel):
     username: str
     email: EmailStr
     password: str
+
+
+    
 
 class UserCreate(UserBase):
     pass
@@ -28,7 +32,11 @@ class PostBase(BaseModel):
     image_url: str  # URL to the uploaded image
     location: str  # Location where the item was found
     phone_number: str  # Phone number for contact
-    description: Optional[str] = None  
+    description: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+  
 
 class PostCreate(PostBase):  
     pass

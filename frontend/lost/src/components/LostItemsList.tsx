@@ -55,7 +55,7 @@ const LostItemsList: React.FC = () => {
         {filteredPosts.map((item: Post) => (
           <div key={item.id} className="shadow-lg rounded-lg overflow-hidden">
             <img
-              src={`https://lost-property-web-app.vercel.app${item.image_url}`} // Using your Vercel URL
+              src={`${item.image_url}`} // Using your Vercel URL
               alt={item.title}
               className="w-full h-48 object-cover"
             />

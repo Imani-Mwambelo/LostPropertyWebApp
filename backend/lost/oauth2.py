@@ -3,7 +3,7 @@ from fastapi import Depends, HTTPException, status
 from jose import jwt, JWTError, ExpiredSignatureError  # Import ExpiredSignatureError
 from fastapi.security.oauth2 import OAuth2PasswordBearer
 from .config import settings
-from lost import schemas
+
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 SECRET_KEY = settings.secret_key

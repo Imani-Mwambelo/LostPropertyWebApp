@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
-import { ArrowLeft } from 'lucide-react'; // Import an arrow icon from lucide-react
-import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
-import 'react-toastify/dist/ReactToastify.css'; // Import toastify CSS
-import api from '../api';
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import api from '../api/api';
 
 const CreatePost: React.FC = () => {
-  const navigate = useNavigate(); // Initialize useNavigate hook
-  const [image, setImage] = useState<File | null>(null);
+  const navigate = useNavigate();
+  const inputFileRef = useRef<HTMLInputElement>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -17,7 +17,6 @@ const CreatePost: React.FC = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      setImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result as string);
@@ -26,20 +25,45 @@ const CreatePost: React.FC = () => {
     }
   };
 
+  const uploadImage = async (file: File): Promise<string> => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await fetch('http://127.0.0.1:8000/api/upload', {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to upload image');
+    }
+
+    const data = await response.json();
+    return data.image_url;
+  };
+
+  const createPost = async (imageUrl: string) => {
+    const postData = {
+      title,
+      description,
+      location,
+      phone_number: phoneNumber,
+      image_url: imageUrl,
+    };
+
+    await api.post('/posts', postData);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (image) {
-      const formData = new FormData();
-      formData.append('file', image);
-      formData.append('title', title);
-      formData.append('description', description);
-      formData.append('location', location);
-      formData.append('phone_number', phoneNumber);
 
+    if (inputFileRef.current?.files && inputFileRef.current.files[0]) {
+      const file = inputFileRef.current.files[0];
       try {
-        await api.post('/posts', formData);
+        const imageUrl = await uploadImage(file);
+        await createPost(imageUrl);
         toast.success('Post created successfully!');
-        navigate('/'); // Navigate back to home after successful post
+        navigate('/');
       } catch (error) {
         console.error('Error creating post:', error);
         toast.error('There was an error creating the post. Make sure you have logged in.');
@@ -48,12 +72,12 @@ const CreatePost: React.FC = () => {
   };
 
   const handleBack = () => {
-    navigate('/'); // Navigate back to the home page
+    navigate('/');
   };
 
   return (
     <div className="max-w-lg mx-auto p-4">
-      <ToastContainer /> {/* Add ToastContainer for toast notifications */}
+      <ToastContainer />
       <div className="flex items-center mb-4">
         <button
           onClick={handleBack}
@@ -113,6 +137,7 @@ const CreatePost: React.FC = () => {
             accept="image/*"
             onChange={handleImageChange}
             className="w-full px-3 py-1 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            ref={inputFileRef}
           />
           {imagePreview && <img src={imagePreview} alt="Preview" className="mt-4 w-full h-auto" />}
         </div>
