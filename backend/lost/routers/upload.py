@@ -10,8 +10,8 @@ router = APIRouter(tags=['Upload'])
 
 
 
-cred = credentials.Certificate("./fileupload-key.json")
-firebase_admin.initialize_app(cred,{"storageBucket":"fileupload-158bb.appspot.com"})
+cred = credentials.Certificate("./upload-570d7-firebase-adminsdk-mvzo7-dcc50a7136.json")
+firebase_admin.initialize_app(cred,{"storageBucket":"upload-570d7.appspot.com"})
 
 
 @router.post("/api/upload")
