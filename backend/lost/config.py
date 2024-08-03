@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     algorithm:str
     access_token_expire_minutes:int
     blob_read_write_token:str
-    file_upload_key:Path
+    file_upload_key:dict
 
     class Config:
         env_file= ".env"
