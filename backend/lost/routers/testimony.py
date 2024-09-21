@@ -12,7 +12,7 @@ router=APIRouter(tags=['Testimonies'])
 
 @router.get("/testimonies", response_model=list[schemas.TestimonyOut])
 def get_testimonies(db: Session = Depends(get_db), user_id = Depends(oauth2.get_current_user)):
-    testimony_query = db.query(models.Testimony).all()
+    testimony_query = db.query(models.Testimony)
     
     tastimonies = testimony_query.all()
     return tastimonies

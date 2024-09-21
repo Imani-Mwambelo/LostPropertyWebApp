@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://0775-196-249-93-124.ngrok-free.app',
+  baseURL: 'https://28ed-196-249-93-52.ngrok-free.app',
   headers: {
     "Content-Type": "application/json",
   }
@@ -10,7 +10,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

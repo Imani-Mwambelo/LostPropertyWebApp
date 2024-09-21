@@ -86,13 +86,13 @@ export interface LostItem {
     },
     {
         id: 4,
-        name: "Fredrick Mwakalambile A.K.A Bukede boiiiiiii",
-        testimony: "Oyaaah, bila hii system mngeniokota wazeeee",
+        name: "Fredrick Mwakalambile",
+        testimony: "Ahsante find&retrieve kwa kunisaidia kupata kitambulisho changu cha taifa",
       },
       {
         id: 5,
         name: "Divan Nyangi",
-        testimony: "Am just proud of you baba harvey....",
+        testimony: "Am just proud of this system....",
       },
     // Add more dummy testimonies as needed
   ];

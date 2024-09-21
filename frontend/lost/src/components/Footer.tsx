@@ -15,7 +15,7 @@ const Footer = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       const response = await fetch('https://formspree.io/f/mqazevgk', {
         method: 'POST',
@@ -38,33 +38,33 @@ const Footer = () => {
 
   return (
     <footer className="text-neutral-500 py-8 bg-gray-100 mt-20">
-      <div className="container mx-auto text-center">
+      <div className="container mx-auto text-center px-4">
         <h2 className="text-2xl mb-4">Get in Touch</h2>
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-6 space-x-6">
           <a
             href="https://github.com/imani-mwambelo"
-            className="mx-4 text-blue-500 hover:text-blue-700"
+            className="text-blue-500 hover:text-blue-700"
             aria-label="GitHub"
           >
             <Github size={24} />
           </a>
           <a
             href="https://www.linkedin.com/in/imani-mwambelo-259453294"
-            className="mx-4 text-blue-500 hover:text-blue-700"
+            className="text-blue-500 hover:text-blue-700"
             aria-label="LinkedIn"
           >
             <Linkedin size={24} />
           </a>
           <a
             href="https://twitter.com/yourusername"
-            className="mx-4 text-blue-500 hover:text-blue-700"
+            className="text-blue-500 hover:text-blue-700"
             aria-label="Twitter"
           >
             <Twitter size={24} />
           </a>
           <a
             href="https://instagram.com/mwambeloimani?igsh=YzljYTk1ODg3Zg=="
-            className="mx-4 text-blue-500 hover:text-blue-700"
+            className="text-blue-500 hover:text-blue-700"
             aria-label="Instagram"
           >
             <Instagram size={24} />
@@ -110,7 +110,7 @@ const Footer = () => {
         </form>
         {status && <p className="mt-4 text-blue-700">{status}</p>}
         <p className="mt-6 mb-2">&copy; {new Date().getFullYear()} Imani Mwambelo. All Rights Reserved.</p>
-        <p>
+        <p className="text-sm md:text-base">
           Built with <span className="text-blue-500">♥</span> using React, Tailwind CSS, and Lucide.
         </p>
       </div>

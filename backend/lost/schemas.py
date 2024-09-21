@@ -75,6 +75,7 @@ class TestimonyCreate(BaseModel):
 class TestimonyOut(TestimonyCreate):
     id:int
     owner_id: int
+    owner: User
 
 
     class Config:

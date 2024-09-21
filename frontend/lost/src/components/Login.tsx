@@ -1,25 +1,65 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import api from '../api/api';
+import React, { useState, FormEvent } from "react";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login: React.FC = () => {
-  const [username, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  // const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await api.post('/login', { username, password });
-      localStorage.setItem('access_token', response.data.access_token);
-      navigate('/');
-    } catch (error) {
-      console.error('Login failed', error);
-      setError('Login failed. Please check your credentials and try again.');
+  const validateForm = (): boolean => {
+    if (!email || !password) {
+      setError("Email and password are required");
+      return false;
     }
+    setError("");
+    return true;
   };
 
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    if (!validateForm()) return;
+    // setLoading(true);
+
+    try {
+      const response = await axios.post(
+        "https://28ed-196-249-93-52.ngrok-free.app/login",
+        new URLSearchParams({
+          username: email,
+          password: password,
+        }),
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      // setLoading(false);
+
+      if (response.status === 200) {
+        const { access_token } = response.data;
+        if (access_token) {
+          localStorage.setItem("token", access_token);
+          console.log("Token saved to localStorage:", localStorage.getItem("token")); // Debugging statement
+          navigate("/", { replace: true });
+        } else {
+          setError("Invalid response from server.");
+        }
+      }
+    } catch (error: any) {
+      // setLoading(false);
+      if (error.response && error.response.data) {
+        setError(error.response.data.detail || "Authentication failed! Incorrect email or password.");
+      } else {
+        setError("An error occurred. Please try again later.");
+      }
+      console.error("Error during login:", error); // Debugging statement
+    }
+  };
+  
   return (
     <div className="flex justify-center items-center min-h-screen">
       <form onSubmit={handleSubmit} className="w-full max-w-md p-8 shadow-lg rounded">
@@ -29,7 +69,7 @@ const Login: React.FC = () => {
           <label className="block text-gray-500">Email</label>
           <input
             type="email"
-            value={username}
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full p-2 border border-gray-500 rounded"
             required
