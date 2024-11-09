@@ -1,38 +1,60 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import { ArrowLeft } from 'lucide-react';
 import 'react-toastify/dist/ReactToastify.css';
 import PostForm from './PostForm';
 
+
+interface Post {
+  id: number;
+  title: string;
+  image_url: string;
+  location: string;
+  phone_number: string;
+  description: string;
+  created_at: string;
+  owner_id: number;
+}
+
+interface LocationState {
+  mode?: 'create' | 'update';
+  post?: Post; // Assuming Post is the type of a post object
+}
+
 const CreatePost: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { mode = 'create', post } = (location.state as LocationState) || {};
 
   const handleSuccess = () => {
-    toast.success('Post created successfully! Redirecting to home...', {
+    const successMessage = mode === 'create' 
+      ? 'Post created successfully!'
+      : 'Post updated successfully!';
+
+    toast.success(`${successMessage} Redirecting to home...`, {
       position: 'top-right',
-      autoClose: 3000, // Toast disappears after 3 seconds
+      autoClose: 3000,
     });
-    setTimeout(() => navigate('/'), 3000); // Redirect after 3 seconds
+    setTimeout(() => navigate('/'), 3000);
   };
+  
+  const redirectPath = mode === 'create' ? '/' : '/my-posts';
 
   const handleBack = () => {
-    navigate('/');
+    navigate(redirectPath);
   };
+
+  
 
   return (
     <div className="max-w-lg mx-auto p-4">
       <ToastContainer />
-      <div className="flex items-center mb-4">
-        {/* Back button to go to the previous page */}
-        {/* <button
-          onClick={handleBack}
-          className="flex items-center bg-gray-100 hover:bg-gray-200 p-2 rounded"
-        >
-          <ArrowLeft className="w-5 h-5 mr-1" /> Back
-        </button> */}
-      </div>
-      <PostForm mode="create" onSuccess={handleSuccess} onClose={handleBack} />
+      <PostForm 
+        mode={mode}
+        initialPost={mode === 'update' ? post : undefined} 
+        onSuccess={handleSuccess} 
+        onClose={handleBack} 
+      />
     </div>
   );
 };

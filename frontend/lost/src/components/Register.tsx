@@ -22,7 +22,7 @@ const Register: React.FC = () => {
     setLoading(true); // Show loading state
     setError(''); // Clear previous errors
     try {
-      await axios.post('https://28ed-196-249-93-52.ngrok-free.app/users', { username, email, password });
+      await axios.post('http://127.0.0.1:8000/users', { username, email, password });
       toast.success('Account created! Redirecting to login...', {
         position: 'top-right',
         autoClose: 3000, // Toast disappears after 3 seconds
@@ -88,7 +88,7 @@ const Register: React.FC = () => {
         <button
           type="submit"
           className={`w-full bg-blue-500 text-white py-2 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-          disabled={loading} // Disable button while loading
+          disabled={loading}
         >
           {loading ? 'Registering...' : 'Register'}
         </button>

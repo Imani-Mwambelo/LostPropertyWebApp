@@ -27,7 +27,7 @@ const Footer = () => {
 
       if (response.ok) {
         setStatus('Thank you for your feedback!');
-        setFormState({ email: '', message: '' }); // Reset form fields after successful submission
+        setFormState({ email: '', message: '' });
       } else {
         setStatus('There was an error submitting your feedback. Please try again later.');
       }
@@ -37,80 +37,76 @@ const Footer = () => {
   };
 
   return (
-    <footer className="text-neutral-500 py-8 bg-gray-100 mt-20">
+    <footer className="bg-gray-100 py-4  text-neutral-500">
       <div className="container mx-auto text-center px-4">
-        <h2 className="text-2xl mb-4">Get in Touch</h2>
-        <div className="flex justify-center mb-6 space-x-6">
+        <h2 className="text-xl mb-2">Get in Touch</h2>
+        <div className="flex justify-center mb-4 space-x-4">
           <a
             href="https://github.com/imani-mwambelo"
             className="text-blue-500 hover:text-blue-700"
             aria-label="GitHub"
           >
-            <Github size={24} />
+            <Github size={20} />
           </a>
           <a
             href="https://www.linkedin.com/in/imani-mwambelo-259453294"
             className="text-blue-500 hover:text-blue-700"
             aria-label="LinkedIn"
           >
-            <Linkedin size={24} />
+            <Linkedin size={20} />
           </a>
           <a
             href="https://twitter.com/yourusername"
             className="text-blue-500 hover:text-blue-700"
             aria-label="Twitter"
           >
-            <Twitter size={24} />
+            <Twitter size={20} />
           </a>
           <a
             href="https://instagram.com/mwambeloimani?igsh=YzljYTk1ODg3Zg=="
             className="text-blue-500 hover:text-blue-700"
             aria-label="Instagram"
           >
-            <Instagram size={24} />
+            <Instagram size={20} />
           </a>
         </div>
-        <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto text-left">
+        <form onSubmit={handleSubmit} className="space-y-2 max-w-md mx-auto text-left">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-blue-700">
               Email
             </label>
-            <div className="mt-1">
-              <input
-                type="email"
-                id="email"
-                value={formState.email}
-                onChange={handleChange}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
+            <input
+              type="email"
+              id="email"
+              value={formState.email}
+              onChange={handleChange}
+              required
+              className="w-full px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            />
           </div>
           <div>
             <label htmlFor="message" className="block text-sm font-medium text-blue-700">
               Message
             </label>
-            <div className="mt-1">
-              <textarea
-                id="message"
-                value={formState.message}
-                onChange={handleChange}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                rows={3}
-              />
-            </div>
+            <textarea
+              id="message"
+              value={formState.message}
+              onChange={handleChange}
+              required
+              className="w-full px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              rows={2} // Reduce rows to minimize height
+            />
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md transition-colors duration-300"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-1 rounded-md transition-colors duration-300"
           >
             Send Feedback
           </button>
         </form>
-        {status && <p className="mt-4 text-blue-700">{status}</p>}
-        <p className="mt-6 mb-2">&copy; {new Date().getFullYear()} Imani Mwambelo. All Rights Reserved.</p>
-        <p className="text-sm md:text-base">
+        {status && <p className="mt-2 text-blue-700">{status}</p>}
+        <p className="mt-4 text-xs">&copy; {new Date().getFullYear()} Imani Mwambelo. All Rights Reserved.</p>
+        <p className="text-xs">
           Built with <span className="text-blue-500">♥</span> using React, Tailwind CSS, and Lucide.
         </p>
       </div>

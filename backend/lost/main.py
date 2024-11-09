@@ -21,7 +21,7 @@ app.add_middleware(
     allow_origins=["*"],  # Replace with your frontend URL for better security
     allow_credentials=True,
     allow_methods=["*"],  # Ensure all necessary HTTP methods are allowed
-    allow_headers=["Content-Type", "Authorization"],  # Include other necessary headers
+    allow_headers=["Content-Type", "Authorization", "ngrok-skip-browser-warning"],  # Include other necessary headers
 )
 
 

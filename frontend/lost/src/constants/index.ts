@@ -94,5 +94,10 @@ export interface LostItem {
         name: "Divan Nyangi",
         testimony: "Am just proud of this system....",
       },
+      {
+        id: 6,
+        name: "Nicolaus Mwasibata",
+        testimony: "Hii system inatufaa sana wanyakyusa aiseee....",
+      },
     // Add more dummy testimonies as needed
   ];

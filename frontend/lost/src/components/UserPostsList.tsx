@@ -4,15 +4,8 @@ import { useFetchUserPosts } from '../hooks/useFetchUserPosts';
 import { ArrowLeft, LoaderCircle } from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import PostForm from './PostForm'; // Import the PostForm component
 
 
-interface PostOwner {
-  id: number;
-  username: string;
-  email: string;
-  created_at: string;
-}
 interface Post {
   id: number;
   title: string;
@@ -22,14 +15,12 @@ interface Post {
   description: string;
   created_at: string;
   owner_id: number;
-  owner:PostOwner;
 }
 
 const UserPostsList: React.FC = () => {
   const navigate = useNavigate();
   const { data: userPosts = [], isLoading, error, deletePost } = useFetchUserPosts();
   const [isDeleting, setIsDeleting] = useState<number | null>(null);
-  const [editingPost, setEditingPost] = useState<Post | null>(null);
 
   useEffect(() => {
     if (error) {
@@ -59,21 +50,15 @@ const UserPostsList: React.FC = () => {
   };
 
   const handleUpdate = (post: Post) => {
-    setEditingPost(post);
+    navigate('/create-post', { state: { mode: 'update', post } });
   };
-
-  const handleBack = () => {
-    navigate('/'); // Navigate back to the home page
-  };
-
-  
 
   return (
     <div className="container mx-auto p-4">
       <ToastContainer />
       <div className="flex items-center mb-4">
         <button
-          onClick={handleBack}
+          onClick={() => navigate('/')}
           className="flex items-center bg-gray-100 hover:bg-gray-200 p-2 rounded"
         >
           <ArrowLeft className="w-5 h-5 mr-1" /> Back
@@ -92,7 +77,7 @@ const UserPostsList: React.FC = () => {
               className="bg-white shadow-md rounded-lg overflow-hidden"
             >
               <img
-                src={`${item.image_url}`} // Full path to the image
+                src={`${item.image_url}`}
                 alt={item.title}
                 className="w-full h-48 object-cover"
               />
@@ -143,16 +128,6 @@ const UserPostsList: React.FC = () => {
             </div>
           </div>
         </div>
-      )}
-
-      {editingPost && (
-        <PostForm
-          mode='update'
-          initialPost={editingPost}
-          postId={editingPost.id}
-          onClose={() => setEditingPost(null)} // Close the form after update
-          onSuccess={() => setEditingPost(null)} // Optionally, refresh posts or trigger an update here
-        />
       )}
     </div>
   );

@@ -25,7 +25,7 @@ const Login: React.FC = () => {
 
     try {
       const response = await axios.post(
-        "https://28ed-196-249-93-52.ngrok-free.app/login",
+        "http://127.0.0.1:8000/login",
         new URLSearchParams({
           username: email,
           password: password,
@@ -85,9 +85,13 @@ const Login: React.FC = () => {
             required
           />
         </div>
-        <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded">
-          Login
-        </button>
+        <button
+            type="submit"
+            className="w-full bg-blue-500 hover:bg-blue-600 active:bg-blue-700 active:scale-95 text-white py-2 rounded transition-all duration-300 ease-in-out transform"
+          >
+            Login
+          </button>
+
         <p className="mt-4 text-center">
           Don't have an account? <Link to="/register" className="text-blue-500">Register here</Link>
         </p>

@@ -31,6 +31,9 @@ const fetchPosts = async (search: string): Promise<Post[]> => {
     params: { search },
   });
   // Map through the response to extract the posts
+  console.log('response');
+  console.log(response.data);
+  console.log('response');
   return response.data.map((postResponse: { Post: any; }) => postResponse.Post);
 };
 

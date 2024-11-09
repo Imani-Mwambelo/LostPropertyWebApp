@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useFetchPosts } from '../hooks/useFetchPosts';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Loader } from 'lucide-react'; // Assuming you are using Lucide React icons
+import { Loader } from 'lucide-react';
 
 interface Post {
   id: number;
@@ -20,26 +20,23 @@ const LostItemsList: React.FC = () => {
   const [locationFilter, setLocationFilter] = useState<string>('');
   const { data: posts = [], isLoading, error } = useFetchPosts(searchTerm);
   
-  const errorToastShown = useRef(false); // Tracks if the error toast has already been shown
+  const errorToastShown = useRef(false);
 
-  // Show toast for error only once
   useEffect(() => {
     if (error && !errorToastShown.current) {
       toast.error(`Error loading posts: ${error.message}`);
-      errorToastShown.current = true; // Mark that error has been shown
+      errorToastShown.current = true;
     }
   }, [error]);
 
-  // Extract unique locations for filtering options
   const uniqueLocations = Array.from(new Set(posts.map((item: Post) => item.location)));
 
-  // Filter posts based on location
   const filteredPosts = posts.filter((post: Post) =>
     locationFilter ? post.location === locationFilter : true
   );
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 h-120">
       <h2 className="text-2xl text-blue-500 mb-6">Discover your lost item</h2>
       
       <div className="mb-6 flex flex-col md:flex-row justify-between items-center">
@@ -68,26 +65,27 @@ const LostItemsList: React.FC = () => {
           <Loader className="animate-spin h-12 w-12 text-blue-500" />
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredPosts.map((item: Post) => (
-            <div key={item.id} className="shadow-lg rounded-lg overflow-hidden">
-              <img
-                src={`${item.image_url}`} // Using your Vercel URL
-                alt={item.title}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="text-xl mb-2">{item.title}</h3>
-                <p className="text-gray-500 mb-2">{item.location}</p>
-                <p className="text-gray-500 mb-2">{item.phone_number}</p>
-                {item.description && <p className="text-gray-500">{item.description}</p>}
+        <div className="h-96 overflow-y-auto"> {/* Set fixed height and enable scrolling */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredPosts.map((item: Post) => (
+              <div key={item.id} className="shadow-lg rounded-lg overflow-hidden">
+                <img
+                  src={`http://127.0.0.1:8000${item.image_url}`}
+                  alt={item.title}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="text-xl mb-2">{item.title}</h3>
+                  <p className="text-gray-500 mb-2">{item.location}</p>
+                  <p className="text-gray-500 mb-2">{item.phone_number}</p>
+                  {item.description && <p className="text-gray-500">{item.description}</p>}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       )}
 
-      {/* Toast container for displaying error messages */}
       <ToastContainer />
     </div>
   );

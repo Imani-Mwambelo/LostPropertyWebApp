@@ -59,7 +59,7 @@ const PostForm: React.FC<PostFormProps> = ({ mode, initialPost, postId, onClose,
     const formData = new FormData();
     formData.append('file', file);
 
-    const response = await fetch('https://28ed-196-249-93-52.ngrok-free.app/api/upload', {
+    const response = await fetch('http://127.0.0.1:8000/api/upload', {
       method: 'POST',
       body: formData,
     });
@@ -217,10 +217,11 @@ const PostForm: React.FC<PostFormProps> = ({ mode, initialPost, postId, onClose,
 
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md transition-colors duration-300"
-          >
+            className="w-full bg-blue-500 hover:bg-blue-600 active:bg-blue-700 active:scale-95 text-white py-2 rounded-md transition-all duration-300 ease-in-out transform"
+            >
             {mode === 'create' ? 'Submit Post' : 'Update Post'}
           </button>
+
         </form>
       ) : (
         <div>
