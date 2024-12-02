@@ -22,7 +22,7 @@ const Register: React.FC = () => {
     setLoading(true); // Show loading state
     setError(''); // Clear previous errors
     try {
-      await axios.post('http://127.0.0.1:8000/users', { username, email, password });
+      await axios.post('https://b894-196-249-97-31.ngrok-free.app/users', { username, email, password });
       toast.success('Account created! Redirecting to login...', {
         position: 'top-right',
         autoClose: 3000, // Toast disappears after 3 seconds

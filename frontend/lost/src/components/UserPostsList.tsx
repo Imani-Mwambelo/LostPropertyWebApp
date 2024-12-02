@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 interface Post {
   id: number;
   title: string;
-  image_url: string;
+  owner_name: string;
   location: string;
   phone_number: string;
   description: string;
@@ -76,25 +76,26 @@ const UserPostsList: React.FC = () => {
               key={item.id}
               className="bg-white shadow-md rounded-lg overflow-hidden"
             >
-              <img
+              {/* <img
                 src={`${item.image_url}`}
                 alt={item.title}
                 className="w-full h-48 object-cover"
-              />
+              /> */}
               <div className="p-3">
                 <h3 className="text-lg font-semibold mb-1">{item.title}</h3>
+                <p className="text-gray-500 text-sm mb-1">{item.owner_name}</p>
                 <p className="text-gray-500 text-sm mb-1">{item.location}</p>
                 <p className="text-gray-500 text-sm mb-1">{item.phone_number}</p>
                 {item.description && (
                   <p className="text-gray-500 text-sm">{item.description}</p>
                 )}
                 <div className="flex space-x-2 mt-3">
-                  <button
+                  {/* <button
                     onClick={() => handleUpdate(item)}
                     className="bg-blue-500 text-white text-sm px-3 py-1 rounded"
                   >
                     Update
-                  </button>
+                  </button> */}
                   <button
                     onClick={() => handleDeleteConfirm(item.id)}
                     className="bg-red-500 text-white text-sm px-3 py-1 rounded"

@@ -22,7 +22,8 @@ class Post(Base):
 
     id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
-    image_url = Column(String, nullable=False)  # URL to the uploaded image
+    owner_name = Column(String, nullable=True)
+    image_url = Column(String, nullable=True)  # URL to the uploaded image
     location = Column(String, nullable=False)  # Location where the item was found
     phone_number = Column(String, nullable=False)  # Phone number for contact
     description = Column(String, nullable=True)  # Optional explanation

@@ -93,7 +93,7 @@ async def update_post(
         "location": post.location,
         "phone_number": post.phone_number,
         "description":post.description,
-        "image_url": post.image_url
+        "owner_name": post.owner_name
     }
 
     post_query.update(updated_post_data, synchronize_session=False)

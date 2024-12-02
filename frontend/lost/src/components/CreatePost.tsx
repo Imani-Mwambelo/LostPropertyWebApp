@@ -8,7 +8,7 @@ import PostForm from './PostForm';
 interface Post {
   id: number;
   title: string;
-  image_url: string;
+  owner_name: string;
   location: string;
   phone_number: string;
   description: string;
@@ -31,14 +31,14 @@ const CreatePost: React.FC = () => {
       ? 'Post created successfully!'
       : 'Post updated successfully!';
 
-    toast.success(`${successMessage} Redirecting to home...`, {
+    toast.success(`${successMessage}`, {
       position: 'top-right',
       autoClose: 3000,
     });
-    setTimeout(() => navigate('/'), 3000);
+    setTimeout(() => navigate('/view-posts'), 3000);
   };
   
-  const redirectPath = mode === 'create' ? '/' : '/my-posts';
+  const redirectPath = mode === 'create' ? '/view-posts' : '/my-posts';
 
   const handleBack = () => {
     navigate(redirectPath);

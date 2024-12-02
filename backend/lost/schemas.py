@@ -29,7 +29,7 @@ class UserLogin(BaseModel):
 
 class PostBase(BaseModel):
     title: str
-    image_url: str  # URL to the uploaded image
+    owner_name: str 
     location: str  # Location where the item was found
     phone_number: str  # Phone number for contact
     description: Optional[str] = None

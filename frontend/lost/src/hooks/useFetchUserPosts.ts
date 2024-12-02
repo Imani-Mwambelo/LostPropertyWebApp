@@ -12,7 +12,7 @@ interface PostOwner {
 interface Post {
   id: number;
   title: string;
-  image_url: string;
+  owner_name: string;
   location: string;
   phone_number: string;
   description: string;

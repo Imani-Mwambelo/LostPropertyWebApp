@@ -7,7 +7,7 @@ import { Loader } from 'lucide-react';
 interface Post {
   id: number;
   title: string;
-  image_url: string;
+  owner_name: string;
   location: string;
   phone_number: string;
   description: string;
@@ -37,7 +37,7 @@ const LostItemsList: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4 h-120">
-      <h2 className="text-2xl text-blue-500 mb-6">Discover your lost item</h2>
+      <h2 className="text-2xl text-blue-500 text-center mb-6">Discover your lost item</h2>
       
       <div className="mb-6 flex flex-col md:flex-row justify-between items-center">
         <input
@@ -66,18 +66,19 @@ const LostItemsList: React.FC = () => {
         </div>
       ) : (
         <div className="h-96 overflow-y-auto"> {/* Set fixed height and enable scrolling */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {filteredPosts.map((item: Post) => (
               <div key={item.id} className="shadow-lg rounded-lg overflow-hidden">
-                <img
+                {/* <img
                   src={`http://127.0.0.1:8000${item.image_url}`}
                   alt={item.title}
                   className="w-full h-48 object-cover"
-                />
-                <div className="p-4">
+                /> */}
+                <div className="p-4 text-center">
                   <h3 className="text-xl mb-2">{item.title}</h3>
-                  <p className="text-gray-500 mb-2">{item.location}</p>
-                  <p className="text-gray-500 mb-2">{item.phone_number}</p>
+                  <p className="text-gray-500 mb-2">Owner: {item.owner_name}</p>
+                  <p className="text-gray-500 mb-2">Found at : {item.location}</p>
+                  <p className="text-gray-500 mb-2">Check Me: {item.phone_number}</p>
                   {item.description && <p className="text-gray-500">{item.description}</p>}
                 </div>
               </div>
